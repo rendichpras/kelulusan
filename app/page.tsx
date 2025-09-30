@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckForm } from "@/components/CheckForm";
 import { checkGraduationAction } from "./actions";
 import { db } from "@/lib/db/drizzle";
@@ -20,25 +19,47 @@ export default async function Home() {
     >
       <div className="fixed inset-0 z-10 bg-black/30 backdrop-blur-sm" aria-hidden="true" />
 
-      <Card
+      <div
         className="
           relative z-20 w-full
           max-w-sm sm:max-w-md md:max-w-lg
           bg-white/20 backdrop-blur-md border border-white/30 shadow-lg
+          rounded-lg overflow-hidden
         "
       >
-        <CardHeader className="text-center space-y-1">
-          <CardTitle className="text-lg sm:text-xl md:text-2xl tracking-tight text-white">
+        <div className="text-center space-y-1 p-6">
+          <div className="flex justify-center mb-4">
+            <img
+              src="/img/logo_osis.webp"
+              alt="Logo Sekolah"
+              className="w-24 h-24 object-contain"
+            />
+          </div>
+          <h1 className="text-lg sm:text-xl md:text-2xl tracking-tight text-white font-semibold">
             Cek Kelulusan
-          </CardTitle>
+          </h1>
           <p className="text-xs sm:text-sm text-white/90">
             Masukkan NIS dan tanggal lahir untuk melihat hasil.
           </p>
-        </CardHeader>
-        <CardContent className="p-4 sm:p-6">
+        </div>
+        <div className="p-4 sm:p-6">
           <CheckForm serverAction={checkGraduationAction} gateOpen={gateOpen} />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
+      <div className="relative z-20 text-center">
+        <p className="text-xs text-white/70">
+          Dibuat dengan ❤️ oleh{" "}
+          <a
+            href="https://instagram.com/rendiichtiar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white/90 transition-colors underline"
+          >
+            @rendiichtiar
+          </a>{" "}
+          | © {new Date().getFullYear()}
+        </p>
+      </div>
     </main>
   );
 }

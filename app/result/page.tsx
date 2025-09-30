@@ -1,10 +1,7 @@
 import { db } from "@/lib/db/drizzle";
 import { students } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { decodeId } from "@/lib/utils/token";
-import { CheckCircle2, XCircle } from "lucide-react";
 
 export default async function ResultPage({
   searchParams,
@@ -29,40 +26,63 @@ export default async function ResultPage({
     >
       <div className="fixed inset-0 z-10 bg-black/30 backdrop-blur-sm" aria-hidden="true" />
 
-      <Card className="relative z-20 w-full max-w-xl bg-white/15 backdrop-blur-md border border-white/30 shadow-lg text-white">
-        <CardHeader className="text-center space-y-2">
-          <CardTitle className="text-2xl sm:text-3xl font-bold tracking-tight">
-            {lulus ? (
-              <span className="inline-flex items-center gap-2 text-emerald-300">
-                SELAMAT! ANDA LULUS
-              </span>
-            ) : (
-              <span className="inline-flex items-center gap-2 text-rose-300">
-                MAAF, ANDA BELUM LULUS
-              </span>
-            )}
-          </CardTitle>
-        </CardHeader>
+      <div className="relative z-20 w-full max-w-3xl space-y-4">
+        <div className={`
+          w-full p-6 rounded-lg shadow-lg text-white
+          ${lulus ? 'bg-green-600' : 'bg-red-600'}
+        `}>
+          <div className="flex justify-between items-center">
+            <div className="flex-1">
+              <h1 className="text-2xl sm:text-3xl font-bold">
+                {lulus ? (
+                  "SELAMAT KAMU DINYATAKAN LULUS SELEKSI OSIS SMK HS AGUNG 2025"
+                ) : (
+                  "MAAF, KAMU DINYATAKAN TIDAK LULUS SELEKSI OSIS SMK HS AGUNG 2025"
+                )}
+              </h1>
+            </div>
+          </div>
+        </div>
 
-        <CardContent className="space-y-5">
-          <div className="rounded-lg border border-white/20 bg-white/10 p-4">
-            <dl className="grid grid-cols-3 gap-x-3 gap-y-2">
-              <dt className="col-span-1 text-sm text-white/80">NIS</dt>
-              <dd className="col-span-2 text-sm font-medium tabular-nums">{s.nis}</dd>
+        <div className="space-y-6 bg-black/40 backdrop-blur-sm p-6 rounded-lg text-white">
+          <div>
+            <div className="mb-4">
+              <span className="text-blue-300">Nomor Peserta: </span>
+              <span className="font-semibold">{s.nis}</span>
+            </div>
 
-              <dt className="col-span-1 text-sm text-white/80">Nama</dt>
-              <dd className="col-span-2 text-sm font-medium">{s.nama}</dd>
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold">{s.nama}</h2>
 
-              <dt className="col-span-1 text-sm text-white/80">Kelas</dt>
-              <dd className="col-span-2 text-sm font-medium">{s.kelas}</dd>
-            </dl>
+              <div>
+                <span className="text-white/80">Kelas: </span>
+                <span className="font-semibold">{s.kelas}</span>
+              </div>
+            </div>
           </div>
 
-          <p className="text-[11px] text-white/80 text-center">
-            Simpan tangkapan layar halaman ini untuk arsip.
+          <div className="pt-2 text-sm text-white/80 italic">
+            {lulus
+              ? "Selamat! Semoga sukses untuk langkah selanjutnya."
+              : "Tetap semangat dan jangan menyerah!"
+            }
+          </div>
+        </div>
+        <div className="relative z-20 text-center">
+          <p className="text-xs text-white/70">
+            Dibuat dengan ❤️ oleh{" "}
+            <a
+              href="https://instagram.com/rendiichtiar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white/90 transition-colors"
+            >
+              @rendiichtiar
+            </a>{" "}
+            | © {new Date().getFullYear()}
           </p>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </main>
   );
 }
